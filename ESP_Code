@@ -1,0 +1,134 @@
+#include "BluetoothSerial.h"
+#define RXD2 16
+#define TXD2 17
+
+BluetoothSerial BT;
+
+void setup() {
+  BT.begin("ESP_MenInBlack");
+  Serial.begin(115200);
+  Serial2.begin(115200, SERIAL_8N1, RXD2, TXD2);
+
+  delay(120000);
+
+  Serial2.print("D040 B130 A030 C035 B090 D120 B130 C020 A000 B100 C045");
+  delay(10000);
+  Serial2.print("B130 C020 A000 B130 A030 C035 B090 D040 B130 C020 A000");
+
+  delay(7000);
+
+  Serial2.print("D040 B130 A055 C035 B090 D120 B130 C020 A000 B100 C045");
+  delay(10000);
+  Serial2.print("B130 C020 A000 B130 A055 C035 B090 D040 B130 C020 A000");
+
+  delay(7000);
+
+  Serial2.print("D040 B130 A080 C035 B090 D120 B130 C020 A000 B100 C045");
+  delay(10000);
+  Serial2.print("B130 C020 A000 B130 A080 C035 B090 D040 B130 C020 A000");
+
+  delay(7000);
+
+  Serial2.print("D040 B130 A030 C055 B085 D120 B130 C020 A000 B100 C045");
+  delay(10000);
+  Serial2.print("B130 C020 A000 B130 A030 C055 B085 D040 B130 C020 A000");
+
+  delay(7000);
+
+  Serial2.print("D040 B130 A055 C055 B085 D120 B130 C020 A000 B100 C045");
+  delay(10000);
+  Serial2.print("B130 C020 A000 B130 A055 C055 B085 D040 B130 C020 A000");
+
+  delay(7000);
+
+  Serial2.print("D040 B130 A080 C055 B085 D120 B130 C020 A000 B100 C045");
+  delay(10000);
+  Serial2.print("B130 C020 A000 B130 A080 C055 B085 D040 B130 C020 A000");
+
+  delay(10000);
+
+  Serial2.print("D040 B130 A030 C090 B080 C080 B070 D120");
+  Serial2.print("B130 C020 A000 B100 C045");
+  delay(13000);
+  Serial2.print("B130 C020 A000 B130 A030 C090 B080 C080 B070");
+  Serial2.print("D040 B130 C020 A000");
+
+  delay(10000);
+
+  Serial2.print("D040 B130 A055 C090 B080 C080 B070");
+  Serial2.print("D120 B130 C020 A000 B100 C045");
+  delay(13000);
+  Serial2.print("B130 C020 A000 B130 A055 C090 B080 C080 B070");
+  Serial2.print("D040 B130 C020 A000");
+
+  delay(10000);
+  
+  Serial2.print("D040 B130 A080 C090 B080 C080 B070");
+  Serial2.print("D120 B130 C020 A000 B100 C045");
+  delay(13000);
+  Serial2.print("B130 C020 A000 B130 A080 C090 B080 C080 B070");
+  Serial2.print("D040 B130 C020 A000");
+}                                                                            
+
+void loop() {
+  byte BTtext = BT.available();
+  byte Serialtext = Serial.available();
+
+  if (BTtext > 0){
+    String ord;
+    ord += char(BT.read());
+    ord += char(BT.read());
+    
+    if (ord == "a1"){
+      Serial2.print("D040 B130 A030 C035 B090 D120 B130 C020 A000 B100 C045");
+      delay(7000);
+      Serial2.print("D040 B130 C020 A000");
+    }
+    if (ord == "a2"){
+      Serial2.print("D040 B130 A055 C035 B090 D120 B130 C020 A000 B100 C045");
+      delay(7000);
+      Serial2.print("D040 B130 C020 A000");
+    }
+    if (ord == "b1"){
+      Serial2.print("D040 B130 A080 C035 B090 D120 B130 C020 A000 B100 C045");
+      delay(7000);
+      Serial2.print("D040 B130 C020 A000");
+    }
+    if (ord == "b2"){
+      Serial2.print("D040 B130 A030 C055 B085 D120 B130 C020 A000 B100 C045");
+      delay(7000);
+      Serial2.print("D040 B130 C020 A000");
+    }
+    if (ord == "c1"){
+      Serial2.print("D040 B130 A055 C055 B085 D120 B130 C020 A000 B100 C045");
+      delay(7000);
+      Serial2.print("D040 B130 C020 A000");
+    }
+    if (ord == "c2"){
+      Serial2.print("D040 B130 A080 C055 B085 D120 B130 C020 A000 B100 C045");
+      delay(7000);
+      Serial2.print("D040 B130 C020 A000");
+    }
+    if (ord == "d1"){
+      Serial2.print("D040 B130 A030 C090 B080 C080 B070 D120");
+      Serial2.print("B130 C020 A000 B100 C045");
+      delay(7000);
+      Serial2.print("D040 B130 C020 A000");
+    }
+    if (ord == "d2"){
+      Serial2.print("D040 B130 A055 C090 B080 C080 B070");
+      Serial2.print("D120 B130 C020 A000 B100 C045");
+      delay(7000);
+      Serial2.print("D040 B130 C020 A000");
+    }
+    if (ord == "e1"){
+      Serial2.print("D040 B130 A080 C090 B080 C080 B070");
+      Serial2.print("D120 B130 C020 A000 B100 C045");
+      delay(7000);
+      Serial2.print("D040 B130 C020 A000");
+    }
+    if (ord == "z1"){
+      Serial2.print("B130 C020 A000");
+    }
+  }
+}
