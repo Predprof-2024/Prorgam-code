@@ -6,7 +6,7 @@ BluetoothSerial BT;
 
 void setup() {
   BT.begin("ESP_MenInBlack");
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial2.begin(115200, SERIAL_8N1, RXD2, TXD2);
 
   delay(120000);
@@ -130,5 +130,9 @@ void loop() {
     if (ord == "z1"){
       Serial2.print("B130 C020 A000");
     }
+  }
+  if (Serial.available() > 0) {
+      SerialBuf = char(Serial.read());
+      Serial2.print(SerialBuf);
   }
 }
