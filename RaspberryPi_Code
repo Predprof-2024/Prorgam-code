@@ -4,7 +4,10 @@ import numpy as np
 import serial
 cap = cv2.VideoCapture(0)
 while True:
+  ord = ser.readline().decode('utf-8').rstrip()
   success, img = cap.read()
+  ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+  ser.flush()
   if not success:
     print('frame not found')
   cv2.imshow('Video', img)
@@ -22,3 +25,5 @@ while True:
   cv2.waitKey(100)
   cv2.destroyAllWindows()
   cap.release()
+  ser.write(key_press)
+  time.sleep(1)
