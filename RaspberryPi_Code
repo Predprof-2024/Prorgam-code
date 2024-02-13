@@ -1,0 +1,24 @@
+import cv2
+import qrcode
+import numpy as np
+import serial
+cap = cv2.VideoCapture(0)
+while True:
+  success, img = cap.read()
+  if not success:
+    print('frame not found')
+  cv2.imshow('Video', img)
+  detector = cv2.QRCodeDetector()
+  data, bbox, clear_qrcode = detector.detectAndDecode(img)
+  print('считываем данные из qr-кода', data, sep='\n')
+  print('массив вершин qr-кода', bbox)
+  list = ['a1', 'a2', 'b1', 'b2', 'c1', 'c2', 'd1', 'd2', 'e1']
+  if data == list:
+    print('finish')
+    break
+  key_press = cv2.waitKey(30)
+  if key_press == ord:
+    break
+  cv2.waitKey(100)
+  cv2.destroyAllWindows()
+  cap.release()
